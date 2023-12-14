@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Who is Online??</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Function to check bot status
+        async function checkBotStatus() {
+            try {
+                // Fetch the bot status from the server
+                const response = await fetch('/check_bot_status');
+                const data = await response.json();
+
+                // Update the bot status in the HTML
+                $('#bot_status').text(data.status ? 'Online' : 'Offline');
+            } catch (error) {
+                console.error('Error checking bot status:', error);
+            }
+        }
+
+        // Initial check when the page loads
+        $(document).ready(function() {
+            checkBotStatus();
+        });
+    </script>
+</head>
+<body>
+    <h1>Is your friend online and ignoring you?</h1>
+    <p>Bot Status: <span id="bot_status"></span></p>
+    <p><a href="/about">Learn more about me</a></p>
+    <p>Enter a Discord user ID to check if they are online:</p>
+    <input type="text" id="user_id">
+    <button onclick="checkOnline()">Check Online Status</button>
+    <p>Online status: <span id="online_status"></span></p>
+</body>
+</html>
